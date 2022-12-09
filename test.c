@@ -1,43 +1,42 @@
-#include <stdio.h>
-#include <stdlib.h>
-typedef int element;
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct {
+	char name[10];
+	int score;
+}element;
+
 typedef struct Node{
 	element data;
 	struct Node* next;
 }Node;
 
-Node* insertFirst(Node* head, element data){
+Node* insert(Node* head){
 	Node* node = (Node *)malloc(sizeof(Node));
-	node->data = data;
+	fgets(node->data.name, 100, stdin);
 	node->next = head;
 	head = node;
 	return head;
 }
-Node* deleteFirst(Node* head){
-	if (head == NULL) return NULL;
-	Node* removed = head;
-	Node* newhead = head -> next;
-	free(removed);
-	removed = NULL;
-   return newhead;
-}
-void printList(Node* head){
-	Node* p = head;
-	while(p!=NULL){
-		printf("%d->", p->data);
-		p = p->next;
+
+void print_list(Node* head){
+	for (Node* p = head; p != NULL; p = p->next){
+		if(p->next == NULL){
+            printf("%s", p->data.name);
+		}else{
+            printf("%s->", p->data.name);
+		}
 	}
-	printf("NULL\n");
+	printf("\n");
 }
+
 int main(){
-	Node* head = NULL;
-	for(int i = 0; i<5; i++){
-		head = insertFirst(head, i);
-		printList(head);
+
+    Node *head  = NULL;
+    element data;
+    for(int i = 0; i<5; i++){
+		head = insert(head);
 	}
-	for(int i = 0; i<5; i++){
-		head = deleteFirst(head);
-		printList(head);
-	}
-	return 0;
+    print_list(head);
+
 }
