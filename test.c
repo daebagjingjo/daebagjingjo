@@ -6,18 +6,18 @@ int cnt = 0;
 int total[100], aver[100];
 
 typedef struct {
-	char name[10];
+   char name[10];
     int kor, eng, math;
     double aver, total;
 }element;
 
 typedef struct Node{
-	element data;
-	struct Node* next;
+   element data;
+   struct Node* next;
 }Node;
 
 Node* insert(Node* head){
-	Node* node = (Node *)malloc(sizeof(Node));
+   Node* node = (Node *)malloc(sizeof(Node));
     int sub;
     char name[10];
 
@@ -41,17 +41,17 @@ Node* insert(Node* head){
     aver[cnt] = node->data.aver;
     cnt++;
 
-	node->next = head;
-	head = node;
+   node->next = head;
+   head = node;
 
-	return head;
+   return head;
 }
 
 void print_list(Node* head){
-	for (Node* p = head; p != NULL; p = p->next){
+   for (Node* p = head; p != NULL; p = p->next){
         printf("학생 : %s\n", p->data.name);
         printf("국어 : %d 영어 : %d 수학 : %d\n", p->data.kor, p->data.eng, p->data.math);
-	}
+   }
 }
 
 int partition(int list[], int left,int right)
@@ -96,7 +96,7 @@ void quicksort(int list[], int left,int right)
     quicksort(total,0,cnt);
 
     for(int i = cnt; i>=1; i--){
-        printf("%d:", i);
+        printf("%d:", cnt-i);
         for(Node* p = head; p != NULL; p = p->next){
             if(p->data.total == total[i]) printf("%s \t", p->data.name);
         }
@@ -109,7 +109,7 @@ void quicksort(int list[], int left,int right)
     quicksort(aver,0,cnt);
 
     for(int i = cnt; i>=1; i--){
-        printf("%d:", i);
+        printf("%d:", cnt-i);
         for(Node* p = head; p != NULL; p = p->next){
             if(p->data.aver == aver[i]) printf("%s \t", p->data.name);
         }
@@ -130,5 +130,6 @@ int main(){
         else if(sw == 2) print_list(head);
         else if(sw == 3) total_jung(head);
         else if(sw == 4) aver_jung(head);
+        else break;
     }
 }
