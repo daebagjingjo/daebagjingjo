@@ -92,13 +92,15 @@ void quicksort(int list[], int left,int right)
     for(int i = 1; i<=cnt; i++){
         printf("총점 : %d ",total[i]);
     }
+    printf("\n");
 }
 
  void aver_jung(){
     quicksort(aver,0,cnt);
     for(int i = 1; i<=cnt; i++){
-        printf("총점 : %d ",aver[i]);
+        printf("평균 : %d ",aver[i]);
     }
+    printf("\n");
 }
 
 
@@ -106,9 +108,13 @@ int main(){
 
     Node *head  = NULL;
     element data;
-    for(int i = 0; i<6; i++){
-		head = insert(head);
-	}
-	total_jung();
-    aver_jung();
+    int sw=100;
+    while(sw != 0){
+        printf("1: 학생 정보 입력 2:학생 정보 출력 3:성적 총점 순위 4:성적 평균 순위 0:종료\n");
+        scanf("%d", &sw);
+        if(sw == 1) head = insert(head);
+        else if(sw == 2) print_list(head);
+        else if(sw == 3) total_jung();
+        else if(sw == 4) aver_jung();
+    }
 }
