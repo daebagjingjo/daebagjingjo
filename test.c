@@ -1,10 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
+#define swap(x,y,t) ((t)=(x), (x)=(y), (y)=(t))
+
+int cnt = 0;
+int total[100], aver[100];
 
 typedef struct {
 	char name[10];
     int kor, eng, math;
-
 }element;
 
 typedef struct Node{
@@ -30,6 +33,10 @@ Node* insert(Node* head){
     scanf("%d", &sub);
     node->data.math = sub;
 
+    total[cnt] += node->data.eng + node->data.kor + node->data.math;
+    aver[cnt] += total[cnt]/3;
+    cnt++;
+
 	node->next = head;
 	head = node;
 
@@ -43,16 +50,65 @@ void print_list(Node* head){
 	}
 }
 
+int partition(int list[], int left,int right)
+{
+    int pivot,temp,low,high;
+    low = left;
+    high= right+1;
+    pivot=list[left];
+    do
+    {
+        do
+        {
+            low++;
+        }while(list[low]<pivot && low<=right);
+        do
+        {
+            high--;
+        }while(list[high]>pivot);
+
+        if(low<high)
+        {
+            swap(list[low],list[high],temp);
+        }
+    }while(low<high);
+    swap(list[left],list[high],temp);
+    return high;
+}
+
+void quicksort(int list[], int left,int right)
+{
+    if(left<right)
+    {
+        int q=partition(list, left, right);
+        quicksort(list,left,q-1);
+        quicksort(list,q+1,right);
+    }
+}
+
+
+ void total_jung(){
+    quicksort(total,0,cnt);
+    for(int i = 1; i<=cnt; i++){
+        printf("총점 : %d ",total[i]);
+    }
+}
+
+ void aver_jung(){
+    quicksort(aver,0,cnt);
+    for(int i = 1; i<=cnt; i++){
+        printf("총점 : %d ",aver[i]);
+    }
+}
+
+
 int main(){
 
     Node *head  = NULL;
     element data;
-    for(int i = 0; i<5; i++){
+    for(int i = 0; i<6; i++){
 		head = insert(head);
 	}
-    print_list(head);
-
-    printf("평균 : %.21f\n", avg);
-    printf("총점 : %d\n", sum);
-
+	total_jung();
+    aver_jung();
 }
