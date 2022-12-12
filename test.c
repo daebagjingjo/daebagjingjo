@@ -8,7 +8,7 @@ int total[100], aver[100];
 typedef struct {
    char name[10];
     int kor, eng, math;
-    double aver, total;
+    int aver, total;
 }element;
 
 typedef struct Node{
@@ -96,7 +96,7 @@ void quicksort(int list[], int left,int right)
     quicksort(total,0,cnt);
 
     for(int i = cnt; i>=1; i--){
-        printf("%d:", cnt-i);
+        printf("%d:", cnt-i+1);
         for(Node* p = head; p != NULL; p = p->next){
             if(p->data.total == total[i]) printf("%s \t", p->data.name);
         }
@@ -109,7 +109,7 @@ void quicksort(int list[], int left,int right)
     quicksort(aver,0,cnt);
 
     for(int i = cnt; i>=1; i--){
-        printf("%d:", cnt-i);
+        printf("%d:", cnt-i+1);
         for(Node* p = head; p != NULL; p = p->next){
             if(p->data.aver == aver[i]) printf("%s \t", p->data.name);
         }
