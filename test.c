@@ -23,6 +23,7 @@ Node* insert(Node* head){
     printf("학생 이름: \n");
     scanf("%s", &name);
     strcpy(node->data.name, name);
+
     printf("국어: \n");
     scanf("%d", &sub);
     node->data.kor = sub;
@@ -90,7 +91,7 @@ void quicksort(int list[], int left,int right)
  void total_jung(){
     quicksort(total,0,cnt);
     for(int i = 1; i<=cnt; i++){
-        printf("총점 : %d ",total[i]);
+        printf("%d 총점 : %d\n", i, total[i]);
     }
     printf("\n");
 }
@@ -98,7 +99,7 @@ void quicksort(int list[], int left,int right)
  void aver_jung(){
     quicksort(aver,0,cnt);
     for(int i = 1; i<=cnt; i++){
-        printf("평균 : %d ",aver[i]);
+        printf("%d 평균 : %d\n", i, aver[i]);
     }
     printf("\n");
 }
