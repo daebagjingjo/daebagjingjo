@@ -8,6 +8,7 @@ int total[100], aver[100];
 typedef struct {
 	char name[10];
     int kor, eng, math;
+    double aver, total;
 }element;
 
 typedef struct Node{
@@ -34,8 +35,10 @@ Node* insert(Node* head){
     scanf("%d", &sub);
     node->data.math = sub;
 
-    total[cnt] += node->data.eng + node->data.kor + node->data.math;
-    aver[cnt] += total[cnt]/3;
+    node->data.total += node->data.eng + node->data.kor + node->data.math;
+    total[cnt] = node->data.total;
+    node->data.aver += node->data.total/3;
+    aver[cnt] = node->data.aver;
     cnt++;
 
 	node->next = head;
@@ -88,22 +91,32 @@ void quicksort(int list[], int left,int right)
 }
 
 
- void total_jung(){
+ void total_jung(Node* head){
+
     quicksort(total,0,cnt);
-    for(int i = 1; i<=cnt; i++){
-        printf("%d 총점 : %d\n", i, total[i]);
+
+    for(int i = cnt; i>=1; i--){
+        printf("%d:", i);
+        for(Node* p = head; p != NULL; p = p->next){
+            if(p->data.total == total[i]) printf("%s \t", p->data.name);
+        }
+        printf("총점 : %d \n", total[i]);
     }
-    printf("\n");
 }
 
- void aver_jung(){
+ void aver_jung(Node* head){
+
     quicksort(aver,0,cnt);
-    for(int i = 1; i<=cnt; i++){
-        printf("%d 평균 : %d\n", i, aver[i]);
-    }
-    printf("\n");
-}
 
+    for(int i = cnt; i>=1; i--){
+        printf("%d:", i);
+        for(Node* p = head; p != NULL; p = p->next){
+            if(p->data.aver == aver[i]) printf("%s \t", p->data.name);
+        }
+        printf("평균 : %d \n", aver[i]);
+
+    }
+}
 
 int main(){
 
@@ -115,7 +128,7 @@ int main(){
         scanf("%d", &sw);
         if(sw == 1) head = insert(head);
         else if(sw == 2) print_list(head);
-        else if(sw == 3) total_jung();
-        else if(sw == 4) aver_jung();
+        else if(sw == 3) total_jung(head);
+        else if(sw == 4) aver_jung(head);
     }
 }
